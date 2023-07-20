@@ -1,3 +1,22 @@
+node {
+    docker.image('maven:3.9.0').inside(args '-v /root/.m2:/root/.m2'){
+        stage('Build') {
+                sh 'mvn -B -DskipTests clean package'
+        }
+        stage('Test') {
+            sh 'mvn -B -DskipTests clean package'
+        }
+        stage('Deploy') {
+            sh './jenkins/scripts/deliver.sh'
+            input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)'
+            // sh './jenkins/scripts/kill.sh'
+            
+        }
+
+    }
+}
+
+/**
 pipeline {
     agent {
         docker {
@@ -24,6 +43,8 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
+                input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)'
+                sh './jenkins/scripts/kill.sh'
             }
         }
     }
