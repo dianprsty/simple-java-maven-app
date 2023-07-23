@@ -50,7 +50,7 @@ pipeline {
                 sh './jenkins/scripts/deliver.sh'
             }
             steps {
-                sleep 1m
+                sh sleep 1m
             }
         }
     }
