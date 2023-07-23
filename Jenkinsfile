@@ -49,8 +49,6 @@ pipeline {
             steps {
                 sh './jenkins/scripts/deliver.sh'
             }
-        }
-        stage('Deploy') {
             steps {
                 sleep 1m
             }
